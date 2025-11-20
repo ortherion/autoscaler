@@ -997,7 +997,7 @@ The following startup parameters are supported for cluster autoscaler:
 | `check-capacity-provisioning-request-batch-timebox` | Maximum time to process a batch of provisioning requests. | 10s |
 | `check-capacity-provisioning-request-max-batch-size` | Maximum number of provisioning requests to process in a single batch. | 10 |
 | `cloud-config` | The path to the cloud provider configuration file. Empty string for no configuration file. |  |
-| `cloud-provider` | Cloud provider type. Available values: [aws,azure,gce,alicloud,cherryservers,cloudstack,baiducloud,magnum,digitalocean,exoscale,externalgrpc,huaweicloud,hetzner,oci,ovhcloud,clusterapi,ionoscloud,kamatera,kwok,linode,bizflycloud,brightbox,equinixmetal,vultr,tencentcloud,civo,scaleway,rancher,volcengine] | "gce" |
+| `cloud-provider` | Cloud provider type. Available values: [aws,azure,gce,alicloud,cherryservers,cloudstack,baiducloud,magnum,digitalocean,exoscale,externalgrpc,huaweicloud,hetzner,oci,ovhcloud,clusterapi,ionoscloud,kamatera,kwok,linode,bizflycloud,brightbox,equinixmetal,vultr,tencentcloud,civo,scaleway,rancher,volcengine,utho] | "gce" |
 | `cloud-provider-gce-l7lb-src-cidrs` | CIDRs opened in GCE firewall for L7 LB traffic proxy & health checks | 130.211.0.0/22,35.191.0.0/16 |
 | `cloud-provider-gce-lb-src-cidrs` | CIDRs opened in GCE firewall for L4 LB traffic proxy & health checks | 130.211.0.0/22,209.85.152.0/22,209.85.204.0/22,35.191.0.0/16 |
 | `cluster-name` | Autoscaled cluster name, if available |  |
@@ -1544,6 +1544,7 @@ Assumption: We assume that the developer executing the below stages wants to syn
     1. Follow instructions at: [IT Usage Guide](./integration/usage.md)
     1. This target will print out a list of shell variable `EXPORT` statements. Copy-paste the printed shell commands and execute them
     1. Now run `make test-integration`
+1. Run sast: `make sast`
 
 #### Stage E: Finalization
 1. Update the [Release Matrix Table](https://github.com/gardener/autoscaler/tree/machine-controller-manager-provider/cluster-autoscaler#releases-gardenerautoscaler)
