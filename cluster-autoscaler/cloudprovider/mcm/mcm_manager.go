@@ -632,12 +632,16 @@ func placeholderInstanceIDForMachineObj(name string) string {
 // generateInstanceStatus returns cloudprovider.InstanceStatus for the machine obj
 func generateInstanceStatus(machine *v1alpha1.Machine) *cloudprovider.InstanceStatus {
 	if machine.Status.LastOperation.Type == v1alpha1.MachineOperationCreate {
-		if machine.Status.LastOperation.State == v1alpha1.MachineStateFailed && machine.Status.LastOperation.ErrorCode == machinecodes.ResourceExhausted.String() {
+		if machine.Status.LastOperation.State == v1alpha1.MachineStateFailed {
+			errorClass := cloudprovider.OtherErrorClass
+			if machine.Status.LastOperation.ErrorCode == machinecodes.ResourceExhausted.String() {
+				errorClass = cloudprovider.OutOfResourcesErrorClass
+			}
 			return &cloudprovider.InstanceStatus{
 				State: cloudprovider.InstanceCreating,
 				ErrorInfo: &cloudprovider.InstanceErrorInfo{
-					ErrorClass:   cloudprovider.OutOfResourcesErrorClass,
-					ErrorCode:    machinecodes.ResourceExhausted.String(),
+					ErrorClass:   errorClass,
+					ErrorCode:    machine.Status.LastOperation.ErrorCode,
 					ErrorMessage: machine.Status.LastOperation.Description,
 				},
 			}
