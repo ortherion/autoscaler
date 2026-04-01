@@ -618,7 +618,7 @@ func findMatchingInstance(nodes []*v1.Node, machine *v1alpha1.Machine) cloudprov
 	//	- the VM is up but has not registered yet
 
 	// Report instance with a special placeholder ID so that the autoscaler can track it as an unregistered node.
-	// Report InstanceStatus only for `ResourceExhausted` errors
+	// Report InstanceStatus for all failed create operations errors
 	return cloudprovider.Instance{
 		Id:     placeholderInstanceIDForMachineObj(machine.Name),
 		Status: generateInstanceStatus(machine),
